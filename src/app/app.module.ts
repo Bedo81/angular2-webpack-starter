@@ -24,10 +24,19 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+// import { ContentfulService } from './shared/services/contentful-service';
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
+import { TripsComponent, SearchBoxComponent } from './trips';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
+
+import { DataService } from './shared/services/data.service';
+
+import {Ng2TableModule} from 'ng2-table';
+import {PaginationModule } from 'ng2-bootstrap/pagination';
+import { DatepickerModule } from 'ng2-bootstrap/datepicker';
+import {MomentModule} from 'angular2-moment';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -36,6 +45,7 @@ import '../styles/headings.css';
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
+  // ContentfulService
 ];
 
 type StoreType = {
@@ -54,17 +64,24 @@ type StoreType = {
     AboutComponent,
     HomeComponent,
     NoContentComponent,
+    TripsComponent,
+    SearchBoxComponent,
     XLargeDirective
   ],
   imports: [ // import Angular's modules
     BrowserModule,
+    DatepickerModule.forRoot(),
     FormsModule,
+    MomentModule,
+    Ng2TableModule,
+    PaginationModule.forRoot(),
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    DataService
   ]
 })
 export class AppModule {

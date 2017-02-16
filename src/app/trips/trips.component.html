@@ -1,0 +1,42 @@
+<div class="card-container">
+  <h1 x-large class="sample-content">Trips</h1>
+  <search-box
+    (loading)="loading = $event"
+    (results)="updateResults($event)"
+  ></search-box>
+
+  <div>
+    <pre class="card card-block card-header">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+    <h4>Inline</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+    </div>
+
+    <hr />
+    <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
+    <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20090824();">2009-08-24</button>
+    <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+    <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
+    <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="disableTomorrow()">Disable Tomorrow</button>
+  </div>
+
+  <!--<div>-->
+  <!--<label for="xsearch">Search</label>-->
+  <!--<input type="text" id="xsearch" class="form-control" autofocus>-->
+  <!--<button name="confirm" (click)="onConfirm()">Go!</button>-->
+  <!--</div>-->
+  <ul>
+    <li *ngFor="let trip of trips">
+      {{trip.country}}
+      <ul>
+        <li *ngFor="let tripdate of trip.dates">
+          {{tripdate.start | amDateFormat:'LL'}} - {{tripdate.end | amDateFormat:'LL'}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div>
+
+  </div>
+
+</div>
